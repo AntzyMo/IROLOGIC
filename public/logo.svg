@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 652 632" role="img" aria-labelledby="title desc">
+  <title id="title">IROLOGIC 三原色标志</title>
+  <desc id="desc">红、蓝、绿三个相交的圆形，表现色彩混合。</desc>
+  <g style="isolation:isolate">
+    <circle cx="273" cy="174" r="174" fill="#ff4f36"/>
+    <circle cx="174" cy="409" r="174" fill="#536ff5" style="mix-blend-mode:multiply"/>
+    <circle cx="416" cy="341" r="174" fill="#caff00" style="mix-blend-mode:multiply"/>
+  </g>
+</svg>
