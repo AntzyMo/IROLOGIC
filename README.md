@@ -1,75 +1,69 @@
-# Nuxt Minimal Starter
+<p align="center">
+  <img src="./public/logo.svg" width="96" alt="IROLOGIC logo">
+</p>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<h1 align="center">IROLOGIC.</h1>
 
-## Setup
+<p align="center">An interactive colour practice for understanding light and pigment mixing through observation and answers.</p>
 
-Make sure to install dependencies:
+<p align="center">
+  <a href="./README.zh.md">简体中文</a>
+</p>
 
-```bash
-# npm
-npm install
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#colour-rules">Colour Rules</a> ·
+  <a href="#contributing">Contributing</a>
+</p>
 
-# pnpm
-pnpm install
+---
 
-# yarn
-yarn install
+IROLOGIC turns fundamental colour theory into a focused interactive exercise. Each visit produces a question about additive or subtractive mixing. Once an answer is selected, the six-colour wheel animates the recipe and its result, helping learners connect colour names with the relationships between them.
 
-# bun
-bun install
-```
+## Why IROLOGIC?
 
-## Development Server
+**IROLOGIC** combines **IRO** and **LOGIC**. `IRO` (いろ) is the Japanese word for “colour”, while `LOGIC` represents reasoning. The name reflects the project’s purpose: go beyond memorising colour-mixing results by understanding the rules through observation, choices, and feedback.
 
-Start the development server on `http://localhost:3000`:
+## Features
 
-```bash
-# npm
-npm run dev
+### Interactive practice
 
-# pnpm
-pnpm dev
+- Random questions drawn from light and pigment colour recipes.
+- Two question directions: identify a mixing result or work backwards from a target colour.
+- Immediate feedback, including correct and incorrect selections with a short explanation.
+- Move directly to the next question after completing one.
 
-# yarn
-yarn dev
+### Visual learning
 
-# bun
-bun run dev
-```
+- A six-colour reference wheel with fixed positions for red, yellow, green, cyan, blue, and magenta.
+- Animated links, glow effects, and labels reveal the correct recipe after answering.
+- Covers the essential RGB additive and CMY subtractive mixing rules.
+- Respects the system “reduce motion” preference to limit animation.
 
-## Production
+## Colour Rules
 
-Build the application for production:
+| System | Recipe | Result |
+| --- | --- | --- |
+| Light (additive) | Red + Green | Yellow |
+| Light (additive) | Green + Blue | Cyan |
+| Light (additive) | Red + Blue | Magenta |
+| Pigment (subtractive) | Yellow + Cyan | Green |
+| Pigment (subtractive) | Cyan + Magenta | Blue |
+| Pigment (subtractive) | Magenta + Yellow | Red |
 
-```bash
-# npm
-npm run build
+## Contributing
 
-# pnpm
-pnpm build
+Suggestions and contributions are welcome.
 
-# yarn
-yarn build
+1. Fork this repository.
+2. Create a branch: `git checkout -b feature/your-feature`.
+3. Make your changes, then run `pnpm test:run` and `pnpm typecheck`.
+4. Commit your work and open a Pull Request.
 
-# bun
-bun run build
-```
+## License
 
-Locally preview production build:
+This project is released under the [MIT License](./LICENSE).
 
-```bash
-# npm
-npm run preview
+---
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+If this exercise is helpful, please consider giving the repository a Star.
