@@ -9,6 +9,15 @@ export const colourLabels: Readonly<Record<ColourId, string>> = {
   magenta: '品红'
 }
 
+export const colourWheelOrder: readonly ColourId[] = [
+  'red',
+  'yellow',
+  'green',
+  'cyan',
+  'blue',
+  'magenta'
+]
+
 export const recipes: readonly Recipe[] = [
   { system: 'light', inputs: ['red', 'green'], result: 'yellow', explanation: '红光与绿光叠加，形成黄光。' },
   { system: 'light', inputs: ['green', 'blue'], result: 'cyan', explanation: '绿光与蓝光叠加，形成青光。' },

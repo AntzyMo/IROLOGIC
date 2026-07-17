@@ -1,48 +1,46 @@
-import { readonly, shallowRef, watch } from 'vue'
-import type { ColourId, Mode } from '~/types/practice'
+import { readonly, shallowRef } from 'vue'
+import type { ColourId } from '~/types/practice'
 
 import { createQuestion, gradeAnswer } from '~/utils/practiceEngine'
 
 export function usePractice({ random = Math.random }: { random?: () => number } = {}) {
-  const mode = shallowRef<Mode>('mixed')
-  const question = shallowRef(createQuestion(mode.value, random))
+  const question = shallowRef(createQuestion('mixed', random))
   const selected = shallowRef<ColourId[]>([])
   const feedback = shallowRef<ReturnType<typeof gradeAnswer> | null>(null)
-  const autoNextTimers = new Set<ReturnType<typeof setTimeout>>()
 
-  const clearAutoNextTimers = () => {
-    for (const timer of autoNextTimers) {
-      if (timer !== undefined)
-        clearTimeout(timer)
-    }
-    autoNextTimers.clear()
-  }
-
-  const next = (nextMode = mode.value) => {
-    clearAutoNextTimers()
-    question.value = createQuestion(nextMode, random)
+  const resetAnswer = () => {
     selected.value = []
     feedback.value = null
   }
 
-  const check = () => {
-    const result = gradeAnswer(question.value, selected.value)
-    feedback.value = result
+  const select = (colour: ColourId) => {
+    if (feedback.value)
+      return
 
-    if (result.isCorrect) {
-      const timer = setTimeout(() => {
-        autoNextTimers.delete(timer)
-        next()
-      }, 650)
-      autoNextTimers.add(timer)
+    if (question.value.kind === 'formula-to-result') {
+      selected.value = [colour]
+    } else {
+      selected.value = selected.value.includes(colour)
+        ? selected.value.filter(id => id !== colour)
+        : [...selected.value, colour]
     }
+
+    if (selected.value.length !== question.value.correctAnswer.length)
+      return
+
+    feedback.value = gradeAnswer(question.value, selected.value)
   }
 
-  const dispose = () => {
-    clearAutoNextTimers()
+  const next = () => {
+    question.value = createQuestion('mixed', random)
+    resetAnswer()
   }
 
-  watch(mode, () => next())
-
-  return { mode, question: readonly(question), selected, feedback: readonly(feedback), check, next, dispose }
+  return {
+    question: readonly(question),
+    selected: readonly(selected),
+    feedback: readonly(feedback),
+    select,
+    next
+  }
 }

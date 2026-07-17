@@ -1,6 +1,8 @@
 import type { ColourId } from '~/types/practice'
 
 import { recipes } from '~/data/colourRules'
+import * as colourRules from '~/data/colourRules'
+
 import { createQuestion, gradeAnswer } from '~/utils/practiceEngine'
 
 it('光模式的第一题是红加绿得到黄', () => {
@@ -45,4 +47,16 @@ it('修改返回题目的数组不会污染规则或后续题目', () => {
     choices: ['red', 'green', 'blue', 'yellow', 'cyan', 'magenta'],
     correctAnswer: ['yellow']
   })
+})
+
+it('色彩节点始终按六角记忆顺序排列', () => {
+  expect('colourWheelOrder' in colourRules).toBe(true)
+  expect((colourRules as { colourWheelOrder?: readonly ColourId[] }).colourWheelOrder).toEqual([
+    'red',
+    'yellow',
+    'green',
+    'cyan',
+    'blue',
+    'magenta'
+  ])
 })

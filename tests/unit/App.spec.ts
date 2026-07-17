@@ -15,14 +15,14 @@ it('在首屏导航保留文字品牌标识', async () => {
   expect(brand.find('img').exists()).toBe(false)
 })
 
-it('按首屏、练习和合并速查区组成单页', async () => {
+it('按首屏和练习区组成单页', async () => {
   const wrapper = await mountSuspended(App)
 
   expect(wrapper.get('h1').text()).toContain('通过观察，理解色彩')
   expect(wrapper.get('#practice').exists()).toBe(true)
-  expect(wrapper.text()).toContain('色彩规律速查')
   expect(wrapper.text()).not.toContain('01 / 观察')
-  expect(wrapper.text()).not.toContain('速查表')
+  expect(wrapper.text()).not.toContain('02 / 规律与速查')
+  expect(wrapper.text()).not.toContain('色彩规律速查')
 })
 
 it('在页脚展示版权信息和 GitHub 仓库链接', async () => {

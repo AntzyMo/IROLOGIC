@@ -16,7 +16,6 @@
     <section id="practice" aria-label="色彩练习">
       <PracticeSection />
     </section>
-    <ColourRulesReference />
     <SiteFooter />
   </main>
 </template>

@@ -6,9 +6,7 @@ const componentFiles = [
   'HeroSection.vue',
   'PracticeSection.client.vue',
   'ModeSwitch.vue',
-  'QuestionCard.vue',
-  'SystemSwitch.vue',
-  'ColourRulesReference.vue'
+  'QuestionCard.vue'
 ]
 
 describe('landing Page 的 Tailwind 迁移', () => {
