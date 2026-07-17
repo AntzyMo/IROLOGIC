@@ -51,6 +51,15 @@ IROLOGIC turns fundamental colour theory into a focused interactive exercise. Ea
 | Pigment (subtractive) | Cyan + Magenta | Blue |
 | Pigment (subtractive) | Magenta + Yellow | Red |
 
+## Tech Stack
+
+- [Nuxt 4](https://nuxt.com/) — application framework
+- [Vue 3](https://vuejs.org/) + TypeScript — component model and type safety
+- [Tailwind CSS 4](https://tailwindcss.com/) — utility-first styling
+- [Motion for Vue](https://motion.dev/) — colour-wheel animations
+- [Mori UI](https://moriui.antzy.me) — interaction components
+- [Vitest](https://vitest.dev/) — unit and component testing
+
 ## Contributing
 
 Suggestions and contributions are welcome.
