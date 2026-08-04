@@ -34,11 +34,21 @@
 
   const feedbackCopy = computed(() => {
     if (!props.feedback)
-      return '右侧参考盘会在回答后展示正确配方。'
+      return {
+        desktop: '右侧参考盘会在回答后展示正确配方。',
+        mobile: '下方参考盘会在回答后展示正确配方。'
+      }
 
-    return props.feedback.isCorrect
-      ? '回答正确，完整配方已在右侧展开。'
-      : '正确配方已在右侧标出，再观察一次颜色的位置。'
+    if (props.feedback.isCorrect)
+      return {
+        desktop: '回答正确，完整配方已在右侧展开。',
+        mobile: '回答正确，完整配方已在下方展开。'
+      }
+
+    return {
+      desktop: '正确配方已在右侧标出，再观察一次颜色的位置。',
+      mobile: '正确配方已在下方标出，再观察一次颜色的位置。'
+    }
   })
 
   function answerState(colour: ColourId) {
@@ -57,7 +67,7 @@
 
 <template>
   <section class="min-w-0">
-    <div class="grid grid-cols-[minmax(17rem,.85fr)_minmax(22rem,1.15fr)] items-stretch gap-[clamp(2rem,7vw,6rem)] py-[clamp(.5rem,2vw,1.5rem)] max-[46rem]:grid-cols-[minmax(0,1fr)] max-[46rem]:gap-5 max-[46rem]:py-[1.15rem]">
+    <section class="grid grid-cols-[minmax(17rem,.85fr)_minmax(22rem,1.15fr)] items-stretch gap-[clamp(2rem,7vw,6rem)] py-[clamp(.5rem,2vw,1.5rem)] max-[46rem]:grid-cols-[minmax(0,1fr)] max-[46rem]:gap-5 max-[46rem]:py-[1.15rem]">
       <section class="flex min-w-0 flex-col justify-center max-[46rem]:order-1" aria-labelledby="practice-question">
         <p class="m-0 mb-[.8rem] text-sm text-[rgb(32_34_44_/_58%)]">
           基础配方
@@ -88,7 +98,8 @@
 
         <div class="mt-6 flex min-h-18 items-center justify-between gap-4 border-t border-[rgb(32_34_44_/_10%)] text-sm text-[rgb(32_34_44_/_70%)] max-[25rem]:flex-col max-[25rem]:items-start" :data-feedback="feedback?.isCorrect ? 'correct' : feedback ? 'incorrect' : 'pending'" aria-live="polite">
           <p class="my-4">
-            {{ feedbackCopy }}
+            <span class="max-[46rem]:hidden">{{ feedbackCopy.desktop }}</span>
+            <span class="hidden max-[46rem]:inline">{{ feedbackCopy.mobile }}</span>
           </p>
           <Button
             v-if="feedback"
@@ -102,6 +113,6 @@
       </section>
 
       <ColourReferenceWheel :question="question" :feedback="feedback" />
-    </div>
+    </section>
   </section>
 </template>

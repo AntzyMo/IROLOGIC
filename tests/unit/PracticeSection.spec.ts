@@ -1,6 +1,19 @@
+import { enableAutoUnmount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
 import PracticeSection from '~/components/PracticeSection.client.vue'
+
+enableAutoUnmount(afterEach)
+
+const { confettiMock } = vi.hoisted(() => {
+  const confettiMock = vi.fn()
+  confettiMock.reset = vi.fn()
+  return { confettiMock }
+})
+vi.mock('canvas-confetti', () => ({ default: confettiMock }))
+beforeEach(() => {
+  confettiMock.mockClear()
+})
 
 it('使用左题右盘布局，不显示阶段切换或检查答案', async () => {
   const wrapper = await mountSuspended(PracticeSection, { props: { random: () => 0 } })
@@ -60,4 +73,34 @@ it('答错后仍显示正确配方，并可用下一题重置作答状态', asyn
   expect(wrapper.find('[data-recipe-animation="idle"]').exists()).toBe(true)
   expect(wrapper.get('[data-colour="blue"]').attributes('data-answer-state')).toBe('idle')
   expect(wrapper.get('[data-colour="blue"]').attributes('disabled')).toBeUndefined()
+})
+
+it('答对后从屏幕中央偏下爆发庆祝彩屑', async () => {
+  const wrapper = await mountSuspended(PracticeSection, { props: { random: () => 0 } })
+
+  await wrapper.find('[data-colour="yellow"]').trigger('click')
+
+  expect(confettiMock).toHaveBeenCalledOnce()
+  expect(confettiMock).toHaveBeenCalledWith(expect.objectContaining({ origin: { x: 0.5, y: 0.62 } }))
+})
+
+it('答错不触发庆祝', async () => {
+  const wrapper = await mountSuspended(PracticeSection, { props: { random: () => 0 } })
+
+  await wrapper.find('[data-colour="blue"]').trigger('click')
+
+  expect(confettiMock).not.toHaveBeenCalled()
+})
+
+it('下一题再答对再次触发庆祝', async () => {
+  const wrapper = await mountSuspended(PracticeSection, { props: { random: () => 0 } })
+
+  await wrapper.find('[data-colour="yellow"]').trigger('click')
+  await wrapper.findAll('button').find(button => button.text() === '下一题')!.trigger('click')
+
+  expect(confettiMock).toHaveBeenCalledTimes(1)
+
+  await wrapper.find('[data-colour="yellow"]').trigger('click')
+
+  expect(confettiMock).toHaveBeenCalledTimes(2)
 })
