@@ -33,17 +33,19 @@
   const instruction = computed(() => `请选择 ${selectionCount.value} 张色卡`)
 
   const feedbackCopy = computed(() => {
-    if (!props.feedback)
+    if (!props.feedback) {
       return {
         desktop: '右侧参考盘会在回答后展示正确配方。',
         mobile: '下方参考盘会在回答后展示正确配方。'
       }
+    }
 
-    if (props.feedback.isCorrect)
+    if (props.feedback.isCorrect) {
       return {
         desktop: '回答正确，完整配方已在右侧展开。',
         mobile: '回答正确，完整配方已在下方展开。'
       }
+    }
 
     return {
       desktop: '正确配方已在右侧标出，再观察一次颜色的位置。',
